@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon backend/index.js"
+    "dev": "nodemon backend/index.js",
+    "start": "node backend/index.js",
+    "build" : "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,7 @@
     "mongodb": "^6.4.0",
     "mongoose": "^8.2.0",
     "nodemon": "^3.1.0",
+    "path": "^0.12.7",
     "socket.io": "^4.7.4"
   }
 }
