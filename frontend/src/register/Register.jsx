@@ -55,12 +55,12 @@ console.log(inputData);
           bg-gray-400 bg-clip-padding
            backderop-filter backdrop-blur-lg bg-opacity-0'>
   <h1 className='text-3xl font-bold text-center text-gray-300'>Register
-                    <span className='text-gray-950'> Chatters </span>
+                    <span className='text-green-300 '> CHATX </span>
                     </h1>
                     <form onSubmit={handelSubmit} className='flex flex-col text-black'>
                     <div>
                             <label className='label p-2' >
-                                <span className='font-bold text-gray-950 text-xl label-text'>fullname :</span>
+                                <span className='font-bold text-white text-xl label-text'>fullname :</span>
                             </label>
                             <input
                                 id='fullname'
@@ -68,11 +68,11 @@ console.log(inputData);
                                 onChange={handelInput}
                                 placeholder='Enter Full Name'
                                 required
-                                className='w-full input input-bordered h-10' />
+                                className='w-full  text-gray-300 input input-bordered h-10' />
                         </div>
                         <div>
                             <label className='label p-2' >
-                                <span className='font-bold text-gray-950 text-xl label-text'>username :</span>
+                                <span className='font-bold text-white text-xl label-text'>username :</span>
                             </label>
                             <input
                                 id='username'
@@ -80,11 +80,11 @@ console.log(inputData);
                                 onChange={handelInput}
                                 placeholder='Enter UserName'
                                 required
-                                className='w-full input input-bordered h-10' />
+                                className='w-full input  text-gray-300 input-bordered h-10' />
                         </div>
                         <div>
                             <label className='label p-2' >
-                                <span className='font-bold text-gray-950 text-xl label-text'>Email :</span>
+                                <span className='font-bold text-white text-xl label-text'>Email :</span>
                             </label>
                             <input
                                 id='email'
@@ -92,11 +92,11 @@ console.log(inputData);
                                 onChange={handelInput}
                                 placeholder='Enter email'
                                 required
-                                className='w-full input input-bordered h-10' />
+                                className='w-full input  text-gray-300 input-bordered h-10' />
                         </div>
                         <div>
                             <label className='label p-2' >
-                                <span className='font-bold text-gray-950 text-xl label-text'>Password :</span>
+                                <span className='font-bold text-white text-xl label-text'>Password :</span>
                             </label>
                             <input
                                 id='password'
@@ -104,11 +104,11 @@ console.log(inputData);
                                 onChange={handelInput}
                                 placeholder='Enter password'
                                 required
-                                className='w-full input input-bordered h-10' />
+                                className='w-full  text-gray-300 input input-bordered h-10' />
                         </div>
                         <div>
                             <label className='label p-2' >
-                                <span className='font-bold text-gray-950 text-xl label-text'>Conf.Password :</span>
+                                <span className='font-bold text-white text-xl label-text'>Conf.Password :</span>
                             </label>
                             <input
                                 id='confpassword'
@@ -116,13 +116,13 @@ console.log(inputData);
                                 onChange={handelInput}
                                 placeholder='Enter Confirm password'
                                 required
-                                className='w-full input input-bordered h-10' />
+                                className='w-full  text-gray-300 input input-bordered h-10' />
                         </div>
 
                         <div
                          id='gender' className="flex gap-2">
                         <label className="cursor-pointer label flex gap-2">
-                        <span className="label-text font-semibold text-gray-950">male</span>
+                        <span className="label-text font-semibold text-white">male</span>
                         <input 
                         onChange={()=>selectGender('male')}
                         checked={inputData.gender === 'male'}
@@ -130,7 +130,7 @@ console.log(inputData);
                         className="checkbox checkbox-info"/>
                         </label>
                         <label className="cursor-pointer label flex gap-2">
-                        <span className="label-text font-semibold text-gray-950">female</span>
+                        <span className="label-text font-semibold text-white">female</span>
                         <input 
                         checked={inputData.gender === 'female'}
                         onChange={()=>selectGender('female')}
@@ -150,10 +150,10 @@ console.log(inputData);
 
                     <div className='pt-2'>
                         <p className='text-sm font-semibold
-                         text-gray-800'>
+                         text-white'>
                             Dont have an Acount ? <Link to={'/login'}>
                                 <span
-                                    className='text-gray-950 
+                                    className='text-white
                             font-bold underline cursor-pointer
                              hover:text-green-950'>
                                     Login Now!!

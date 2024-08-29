@@ -83,7 +83,7 @@ const MessageContainer = ({ onBackUser }) => {
     <div className='md:min-w-[500px] h-full flex flex-col py-2'>
       {selectedConversation === null ? (
         <div className='flex items-center justify-center w-full h-full'>
-          <div className='px-4 text-center text-2xl text-gray-950 font-semibold flex flex-col items-center gap-2'>
+          <div className='px-4 text-center text-2xl text-white font-semibold flex flex-col items-center gap-2'>
             <p className="text-2xl">Welcome!!👋 {authUser.username}😉</p>
             <p className="text-lg">Select a chat to start messaging</p>
             <TiMessages className='text-6xl text-center' />
@@ -104,7 +104,7 @@ const MessageContainer = ({ onBackUser }) => {
                   <img className='rounded-full w-6 h-6 md:w-10 md:h-10 cursor-pointer'
                     src={selectedConversation?.profilepic} />
                 </div>
-                <span className='text-gray-950 self-center text-sm  md:text-xl font-bold'>
+                <span className='text-white self-center text-sm  md:text-xl font-bold'>
                   {selectedConversation?.username}
                 </span>
               </div>
@@ -134,16 +134,16 @@ const MessageContainer = ({ onBackUser }) => {
                   </div>
                 </div>
               </div>
-            ))};
+            ))}{/* Removed the semicolon here */}
           </div>
 
-          <form onSubmit={hadelSubmit} className=' rounded-full text-black'>
-            <div className='w-full rounded-full flex items-center bg-white'>
+          <form onSubmit={hadelSubmit} className=' rounded-full text-white' aria-placeholder='Type a message'>
+            <div className='w-full rounded-full flex items-center bg-black'aria-placeholder='Type a message'>
               <input value={sendData} required onChange={(e) => setSendData(e.target.value)} id='message'
-                type='text ' className='w-full bg-transparent outline-none px-4 rounded-full' />
+                type='text'  placeholder='Type a message ' className='w-full bg-transparent outline-none px-4 rounded-full' />
               <button type='submit'>
                 {loading ? <div className='loading loading-spinner'></div> :
-                  <IoSend size={25} className='text-sky-700 cursor-pointer rounded-full bg-gray-800 w-10 h-auto p-1' />}
+                  <IoSend size={25} className='text-sky-700 cursor-pointer  rounded-full bg-gray-900 w-10 h-auto p-1' aria-placeholder='Type a message'/>}
               </button>
             </div>
           </form>
