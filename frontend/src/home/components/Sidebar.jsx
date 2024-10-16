@@ -4,28 +4,35 @@ import axios from 'axios';
 import { toast } from 'react-toastify'
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom'
-import { IoArrowBackSharp } from 'react-icons/io5'
+import { IoArrowBackSharp } from 'react-icons/io5';
 import { BiLogOut } from "react-icons/bi";
-import userConversation from '../../Zustan/userConversation';
-import { useSocketContext } from '../../context/SocketContext';
+import userConversation from '../../Zustans/useConversation';
+import { useSocketContext } from '../../context/socketContext';
 
 const Sidebar = ({ onSelectUser }) => {
 
     const navigate = useNavigate();
     const { authUser, setAuthUser } = useAuth();
-    const { socket, onlineUser } = useSocketContext();
     const [searchInput, setSearchInput] = useState('');
     const [searchUser, setSearchuser] = useState([]);
     const [chatUser, setChatUser] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectedUserId, setSetSelectedUserId] = useState(null);
-    const { message , selectedConversation, setSelectedConversation } = userConversation();
     const [newMessageUsers, setNewMessageUsers] = useState('');
+    const {messages , setMessage, selectedConversation ,  setSelectedConversation} = userConversation();
+    const { onlineUser , socket} = useSocketContext();
 
-    const talkedwith = chatUser.map((user) => (user._id));
+    const nowOnline = chatUser.map((user)=>(user._id));
+    //chats function
+    const isOnline = nowOnline.map(userId => onlineUser.includes(userId));
 
-    const isOnline = talkedwith.map(userId => onlineUser.includes(userId))
-    console.log(isOnline);
+    useEffect(()=>{
+        socket?.on("newMessage",(newMessage)=>{
+            setNewMessageUsers(newMessage)
+        })
+        return ()=> socket?.off("newMessage");
+    },[socket,messages])
+
     //show user with u chatted
     useEffect(() => {
         const chatUserHandler = async () => {
@@ -47,7 +54,7 @@ const Sidebar = ({ onSelectUser }) => {
         }
         chatUserHandler()
     }, [])
-    console.log(selectedConversation);
+    
     //show user from the search result
     const handelSearchSubmit = async (e) => {
         e.preventDefault();
@@ -73,9 +80,10 @@ const Sidebar = ({ onSelectUser }) => {
 
     //show which user is selected
     const handelUserClick = (user) => {
-        onSelectUser(user)
-        setSetSelectedUserId(user._id)
-        setSelectedConversation(user)
+        onSelectUser(user);
+        setSelectedConversation(user);
+        setSetSelectedUserId(user._id);
+        setNewMessageUsers('')
     }
 
     //back from search result
@@ -83,13 +91,6 @@ const Sidebar = ({ onSelectUser }) => {
         setSearchuser([]);
         setSearchInput('')
     }
-
-    useEffect(()=>{
-        socket?.on('newMessage',(newMessage)=>{
-            setNewMessageUsers(newMessage)
-        })
-        return ()=> socket?.off("newMessage")
-    },[socket,message])
 
     //logout
     const handelLogOut = async () => {
@@ -154,7 +155,7 @@ const Sidebar = ({ onSelectUser }) => {
                                                 ${selectedUserId === user?._id ? 'bg-sky-500' : ''
                                             } `}>
                                         {/*Socket is Online*/}
-                                        <div className={`avatar ${isOnline[index] ? 'online' : ''}`}>
+                                        <div className={`avatar ${isOnline[index] ? 'online':''}`}>
                                             <div className="w-12 rounded-full">
                                                 <img src={user.profilepic} alt='user.img' />
                                             </div>
@@ -200,7 +201,7 @@ const Sidebar = ({ onSelectUser }) => {
                                                     } `}>
 
                                                 {/*Socket is Online*/}
-                                                <div className={`avatar ${isOnline[index] ? 'online' : ''}`}>
+                                                <div className={`avatar ${isOnline[index] ? 'online':''}`}>
                                                     <div className="w-12 rounded-full">
                                                         <img src={user.profilepic} alt='user.img' />
                                                     </div>
@@ -208,16 +209,11 @@ const Sidebar = ({ onSelectUser }) => {
                                                 <div className='flex flex-col flex-1'>
                                                     <p className='font-bold text-gray-950'>{user.username}</p>
                                                 </div>
-
-                                                <div>
-                                                    {selectedConversation === null && 
-                                                    newMessageUsers.reciverId === authUser._id  
-                                                    && newMessageUsers.senderId === user._id ? 
-                                                    <div className="rounded-full bg-green-700 text-sm text-white px-[4px]">+1
+                                                    <div>
+                                                        { newMessageUsers.reciverId === authUser._id && newMessageUsers.senderId === user._id ?
+                                                    <div className="rounded-full bg-green-700 text-sm text-white px-[4px]">+1</div>:<></>
+                                                        }
                                                     </div>
-                                                    :
-                                                    <></>}
-                                                </div>
                                             </div>
                                             <div className='divider divide-solid px-3 h-[1px]'></div>
                                         </div>
